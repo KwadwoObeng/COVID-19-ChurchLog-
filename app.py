@@ -6,6 +6,7 @@
 
 from churchRegistration import app
 from flask import Flask, render_template
+from churchRegistration.forms import *
 
 @app.route('/')
 def index():
@@ -24,7 +25,8 @@ def admin():
 
 @app.route('/admin/AdminAddService')
 def add_service():
-    return
+    form = CreateChurchServiceForm()
+    return render_template("add_service.html", page_title = "Add a Service", form = form)
 
 
 if __name__ == '__main__':
