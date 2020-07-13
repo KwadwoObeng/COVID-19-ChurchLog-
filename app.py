@@ -9,8 +9,9 @@ from flask import Flask, render_template, redirect, url_for
 from churchRegistration.forms import *
 
 @app.route('/')
+@app.route('/home')
 def index():
-    return "Hello World"
+    return render_template('home.html', page_title='Home')
 
 
 @app.route('/userform')
@@ -19,9 +20,20 @@ def userform():
     return render_template('userform.html', page_title = "Register for a service", form = form)
 
 
-@app.route('/admin')
+@app.route('/admin/createaccount')
+def admin_account():
+    form = AdminRegister()
+    if form.validate_on_submit():
+        return redirect(url_for('admin'))
+    return render_template('admin_register.html', page_title='Register Church', form=form)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return
+    form = AdminLogin()
+    if form.validate_on_submit():
+        return redirect(url_for('add_service'))
+    return render_template('admin.html', page_title='Admin Login', form=form)
 
 
 @app.route('/admin/AdminAddService', methods = ['GET','POST'])

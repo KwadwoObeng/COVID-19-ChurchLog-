@@ -10,7 +10,11 @@
                     <form class="form-signin" method="post">
                         {{ form.hidden_tag() }}
                         <fieldset class="form-label-group">
-                            <legend class="card-title text-center">Sign in</legend>
+                            <legend class="card-title text-center">Sign up</legend>
+                            <div class="form-label-group">
+                                {{form.church_name.label(class="form-control-label")}}
+                                {{form.church_name(class="form-control form-control-lg")}}
+                            </div>
                             <div class="form-label-group">
                                 {{form.email.label(class="form-control-label")}}
                                 {{form.email(class="form-control form-control-lg")}}
@@ -19,9 +23,10 @@
                                {{form.password.label(class="form-control-label")}}
                                {{form.password(class="form-control form-control-lg")}}
                             </div>
-                            <div class="form-check">
-                                {{ form.remember(class="form-check-input") }}
-                                {{ form.remember.label(class="form-check-label") }}
+                            <div class="form-group">
+                                {{ form.confirm_password.label(class="form-control-label") }}
+                                {{ form.confirm_password(class="form-control form-control-lg") }}
+
                             </div>
 
                         </fieldset>
@@ -31,7 +36,7 @@
                      </form>
                     <div class="border-top pt-3">
                         <small class="text-muted">
-                         Register your church here<a class="ml-2" href="{{ url_for('admin_account') }}">Sign Up Now</a>
+                         Already Registered?<a class="ml-2" href="{{ url_for('admin') }}">Sign in</a>
                         </small>
                      </div>
                 </div>
