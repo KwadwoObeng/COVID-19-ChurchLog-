@@ -15,7 +15,8 @@ def index():
 
 @app.route('/userform')
 def userform():
-    return render_template('userform.html', page_title = "Register for a service")
+    form = JoinServiceForm()
+    return render_template('userform.html', page_title = "Register for a service", form = form)
 
 
 @app.route('/admin')
