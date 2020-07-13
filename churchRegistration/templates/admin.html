@@ -1,10 +1,46 @@
 {% extends 'default.html' %}
 
-{% block head %}
-
-{% endblock %}
-
 
 {% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <form class="form-signin" method="post">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-label-group">
+                            <legend class="card-title text-center">Sign in</legend>
+                            <div class="form-label-group">
+                                {{form.email.label(class="form-control-label")}}
+                                {{form.email(class="form-control form-control-lg")}}
+                            </div>
+                            <div class="form-group">
+                               {{form.password.label(class="form-control-label")}}
+                               {{form.password(class="form-control form-control-lg")}}
+                            </div>
+                            <div class="form-check">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-check-label") }}
+                            </div>
 
+                        </fieldset>
+                            <div class="form-group">
+                                {{ form.submit(class="btn btn-primary my-4") }}
+                            </div>
+                     </form>
+                    <div class="border-top pt-3">
+                        <small class="text-muted">
+                         Register your church here<a class="ml-2" href="{{ url_for('admin_account') }}">Sign Up Now</a>
+                        </small>
+                     </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
 {% endblock %}
