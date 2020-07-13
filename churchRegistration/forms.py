@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.fields.html5 import DateField, TimeField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo,Length
 from wtforms import ValidationError
 
 
@@ -10,3 +10,18 @@ class CreateChurchServiceForm(FlaskForm):
     date = DateField("Date of Service", format = '%Y-%m-%d')
     time = TimeField("Time Service Begins", format = '%H.%M')
     submit = SubmitField("Create Service")
+
+
+class AdminRegister(FlaskForm):
+    church_name = StringField("Name of Church", validators=[DataRequired(), Length(min=5, max=25)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Register')
+
+
+class AdminLogin(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember me')
+    submit = SubmitField('Login')
