@@ -3,10 +3,12 @@
 # / -home page, /userform -user books service here
 # /admin -admin can view service list here
 
-
-from churchRegistration import app
+from churchRegistration import app, login_manager,db
+from churchRegistration.models import *
 from flask import Flask, render_template, redirect, url_for
 from churchRegistration.forms import *
+from flask_login import login_user, login_required, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 @app.route('/')
 @app.route('/home')
@@ -44,6 +46,9 @@ def add_service():
         return redirect(url_for("index"))
     return render_template("add_service.html", page_title = "Add a Service", form = form)
 
+@app.route('/login')
+def login():
+    pass
 
 if __name__ == '__main__':
     app.run(debug = True)
