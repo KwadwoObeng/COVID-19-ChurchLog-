@@ -12,6 +12,7 @@ psycopg2 = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-login = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
