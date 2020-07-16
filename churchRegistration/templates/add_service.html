@@ -1,17 +1,39 @@
 {% extends 'default.html' %}
 
 {% block body %}
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.name.label() }}
-    {{ form.name() }}
-    <br/>
-    {{ form.date.label() }}
-    {{ form.date() }}
-    <br/>
-    {{ form.time.label() }}
-    {{ form.time() }}
-    <br/>
-    {{ form.submit() }}
-</form>
+
+<div class="container">
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-label-group">
+            <legend class="card-title text-center">Add Service</legend>
+            <div class="form-label-group">
+                 {{ form.name.label(class="form-control-label") }}
+                 {{ form.name(class="form-control form-control-lg") }}
+            </div>
+
+            <div class="form-label-group">
+                {{ form.date.label(class="form-control-label") }}
+                {{ form.date(class="form-control form-control-lg") }}
+            </div>
+
+            <div class="form-label-group">
+                {{ form.time.label(class="form-control-label") }}
+                {{ form.time(class="form-control form-control-lg") }}
+            </div>
+
+        </fieldset>
+
+        <div>
+            {{ form.submit(class="btn btn-primary my-4") }}
+        </div>
+
+         </form>
+
+
+</div>
+
+
+
 {% endblock %}
