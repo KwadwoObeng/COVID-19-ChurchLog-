@@ -13,6 +13,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-login = "*"
 python-dotenv = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.7"
