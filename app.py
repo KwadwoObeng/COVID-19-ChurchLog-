@@ -23,7 +23,7 @@ def userform():
     return render_template('userform.html', page_title = "Register for a service", form = form)
 
 
-@app.route('/admin/createaccount')
+@app.route('/admin/createaccount', methods=['GET', 'POST'])
 def admin_account():
     form = AdminRegister()
     if form.validate_on_submit():
