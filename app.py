@@ -7,6 +7,7 @@
 from churchRegistration import app
 from flask import Flask, render_template, redirect, url_for
 from churchRegistration.forms import *
+from churchRegistration.models import *
 
 @app.route('/')
 @app.route('/home')
