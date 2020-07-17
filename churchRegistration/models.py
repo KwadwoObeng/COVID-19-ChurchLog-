@@ -14,8 +14,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(), unique=True)
     email = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
-    churchservices = db.relationship(
-        'ChurchService', backref='church', lazy=True)
+    churchservices = db.relationship('ChurchService', backref='church', lazy=True)
 
     def __init__(self, name, email, password):
         self.name = name
@@ -33,11 +32,13 @@ class ChurchService(db.Model):
     name = db.Column(db.String(64))
     date = db.Column(db.DateTime())
     number_of_attendees = db.Column(db.Integer(), default=0)
+    capacity = db.Column(db.Integer(), default = 100)
     church = db.Column(db.Integer, db.ForeignKey('church.id'), nullable=False)
 
-    def __init__(self, name, date):
+    def __init__(self, name, date, capacity):
         self.name = name
         self.date = date
+        self.capacity = capacity
 
     def __repr__(self):
         return f"{self.name} at {self.date}"
