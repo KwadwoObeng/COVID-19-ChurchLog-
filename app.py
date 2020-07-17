@@ -53,14 +53,16 @@ def login():
 def add_service():
     form = CreateChurchServiceForm()
     if form.validate_on_submit():
+        # service = ChurchService(form.name.data, form.date.data, )
         flash("Service Successfully Added")
-        return redirect(url_for("index"))
+        return redirect(url_for("admin"))
     return render_template("add_service.html", page_title = "Add a Service", form = form)
 
 @app.route('/admin')
 @login_required
 def admin():
-    return f"This is the admin page for {current_user.name}"
+    services = ChurchService.query.filter_by(church_id = current_user.id)
+    return render_template('dashboard.html', page_title = {current_user.name}, services = services)
 
 @app.route('/logout')
 @login_required
