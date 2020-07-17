@@ -34,6 +34,7 @@ class ChurchService(db.Model):
     number_of_attendees = db.Column(db.Integer(), default=0)
     capacity = db.Column(db.Integer(), default = 100)
     church = db.Column(db.Integer, db.ForeignKey('church.id'), nullable=False)
+    attendees = db.relationship('ServiceAttendees', backref = 'service', lazy = True)
 
     def __init__(self, name, date, capacity):
         self.name = name
@@ -42,3 +43,12 @@ class ChurchService(db.Model):
 
     def __repr__(self):
         return f"{self.name} at {self.date}"
+
+class ServiceAttendees(db.Model):
+    __tablename__ = 'attendees'
+
+    id = db.Column(db.Integer(), primary_key = True)
+    name = db.Column(db.String(64), nullable = False)
+    number = db.Column(db.String(20), nullable = False)
+    area = db.Column(db.String(30), nullable = False)
+    service = db.Column(db.Integer, db.ForeignKey('churchService.id'), nullable = False)
