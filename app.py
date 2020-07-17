@@ -61,8 +61,9 @@ def add_service():
 @app.route('/admin')
 @login_required
 def admin():
-    services = ChurchService.query.filter_by(church_id = current_user.id)
-    
+    services = ChurchService.query.filter_by(church_id = current_user.id).all()
+    if len(services) == 0:
+        services = 0
     return render_template('dashboard.html', page_title = {current_user.name}, services = services)
 
 @app.route('/logout')
