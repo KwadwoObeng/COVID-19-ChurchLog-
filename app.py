@@ -40,7 +40,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
         if user.check_password(form.password.data) and user is not None:
-            login_user(user)
+            login_user(user, remember=form.remember.data)
             next = request.args.get('next')
             if next == None or not next[0] == '/':
                 next = url_for('admin')
@@ -62,6 +62,7 @@ def add_service():
 @login_required
 def admin():
     services = ChurchService.query.filter_by(church_id = current_user.id)
+    
     return render_template('dashboard.html', page_title = {current_user.name}, services = services)
 
 @app.route('/logout')
