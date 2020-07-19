@@ -3,6 +3,8 @@ from wtforms import StringField, PasswordField, SubmitField, SelectField, Boolea
 from wtforms.fields.html5 import DateField, TimeField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms import ValidationError
+from churchRegistration.models import User
+
 
 
 class CreateChurchServiceForm(FlaskForm):
@@ -23,6 +25,11 @@ class AdminRegister(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
+
+    def validate_church_name(self,church_name):
+        user = User.query.filter_by(name=church_name.data).first()
+        if user:
+            raise ValidationError("Sorry Church name is not unique")
 
 
 class AdminLogin(FlaskForm):
