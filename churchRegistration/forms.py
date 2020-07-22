@@ -37,3 +37,18 @@ class AdminLogin(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Login')
+
+
+class RequestReset(FlaskForm):
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Sorry Email does not exist')
+
+
+class ResetPassword(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Reset Password', validators=[DataRequired(), EqualTo(password)])
