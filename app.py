@@ -5,7 +5,7 @@
 
 from churchRegistration import app, login_manager,db, mail
 from churchRegistration.models import *
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, get_flashed_messages
 from churchRegistration.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
