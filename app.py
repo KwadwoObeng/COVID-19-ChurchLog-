@@ -3,12 +3,13 @@
 # / -home page, /userform -user books service here
 # /admin -admin can view service list here
 
-from churchRegistration import app, login_manager,db
+from churchRegistration import app, login_manager,db, mail
 from churchRegistration.models import *
 from flask import Flask, render_template, redirect, url_for, flash, request
 from churchRegistration.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Message
 
 
 @app.route('/')
@@ -71,6 +72,47 @@ def admin():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+def send_reset_email(user):
+    token = user.get_token()
+    msg = Message('Password Reset Request', sender='noreply@demo.com', recipients=[user.email])
+    msg.body = f'''Click the following link to reset your password
+    {url_for('reset_token', token=token, _external=True)} 
+    If you did not make this request please ignore
+    '''
+    mail.send(msg)
+
+
+@app.route('/reset_password', methods=['GET','POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin'))
+    form = RequestReset()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your password', 'info')
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', page_title='Reset Password',form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET','POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('admin'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('This is an invalid or expired token', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPassword
+    if form.validate_on_submit():
+        user = User(password=form.password.data)
+        db.session.commit()
+        flash('Your password has been successfully reset', 'success')
+        return redirect(url_for('login'))
+    return render_template('reset_token.html', page_title='Reset Password', form=form)
+
 
 
 if __name__ == '__main__':
