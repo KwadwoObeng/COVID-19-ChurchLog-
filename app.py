@@ -105,7 +105,7 @@ def reset_token(token):
     if user is None:
         flash('This is an invalid or expired token', 'warning')
         return redirect(url_for('reset_request'))
-    form = ResetPassword
+    form = ResetPassword()
     if form.validate_on_submit():
         user = User(password=form.password.data)
         db.session.commit()
