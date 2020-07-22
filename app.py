@@ -107,6 +107,7 @@ def reset_token(token):
         return redirect(url_for('reset_request'))
     form = ResetPassword()
     if form.validate_on_submit():
+        #possible error password doesn't change/flash messages do not appear
         user = User(password=form.password.data)
         db.session.commit()
         flash('Your password has been successfully reset', 'success')
