@@ -11,10 +11,7 @@
                         {{ form.hidden_tag() }}
                         <fieldset class="form-label-group">
                             <legend class="card-title text-center">Reset Password</legend>
-                            <div class="form-label-group">
-                                {{form.email.label(class="form-control-label")}}
-                                {{form.email(class="form-control form-control-lg")}}
-                            </div>
+                            
                             <div class="form-label-group">
                                 {{form.password.label(class="form-control-label")}}
                                 {{form.password(class="form-control form-control-lg")}}
@@ -26,9 +23,9 @@
                             
 
                         </fieldset>
-                            <div class="form-group">
-                                {{ form.submit(class="btn btn-primary my-4") }}
-                            </div>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary my-4") }}
+                        </div>
                      </form>
                     
                 </div>
